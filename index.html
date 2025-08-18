@@ -3,7 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & Metadata -->
     <title>Allync - SpigotMC Plugin Developer</title>
+    <meta name="description" content="Portfolio for Allync, a SpigotMC developer creating high-quality, performant plugins like Harvest Flow, NightMarket, and DeluxeMobCoins.">
+    <meta name="keywords" content="Allync, SpigotMC, Minecraft, plugins, developer, Harvest Flow, NightMarket, DeluxeMobCoins, Minecraft server">
+    <meta name="author" content="Allync">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FF6600'></rect><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='60' font-family='Inter, sans-serif' font-weight='900' fill='white'>A</text></svg>">
+
+    <!-- Open Graph / Facebook / Discord -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://allyncid.github.io/portfolio/">
+    <meta property="og:title" content="Allync - SpigotMC Plugin Developer">
+    <meta property="og:description" content="Crafting next-level server experiences with high-quality SpigotMC plugins.">
+    <meta property="og:image" content="https://placehold.co/1200x630/FF6600/101010?text=Allync's+Plugins">
+    <meta property="og:site_name" content="Allync's Portfolio">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://allyncid.github.io/portfolio/">
+    <meta property="twitter:title" content="Allync - SpigotMC Plugin Developer">
+    <meta property="twitter:description" content="Crafting next-level server experiences with high-quality SpigotMC plugins.">
+    <meta property="twitter:image" content="https://placehold.co/1200x630/FF6600/101010?text=Allync's+Plugins">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -21,6 +43,10 @@
             --border-color: rgba(255, 255, 255, 0.1);
         }
 
+        html {
+            scroll-padding-top: 80px; /* Offset for fixed header */
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--dark-bg);
@@ -30,6 +56,9 @@
         
         body.menu-open {
             overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
         }
 
         #particles-js {
@@ -208,13 +237,15 @@
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 2rem;
-            height: 100%; /* Ensure cards have same height */
         }
 
         /* Swiper Customization */
         .swiper-container {
             width: 100%;
             padding-bottom: 50px !important;
+        }
+        .swiper-slide {
+            height: auto;
         }
         .swiper-pagination-bullet {
             background-color: rgba(255, 255, 255, 0.5) !important;
@@ -233,6 +264,14 @@
             0% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
             100% { transform: translateY(0px); }
+        }
+
+        /* Mobile Header Fix */
+        @media (max-width: 767px) {
+            #header {
+                background-color: rgba(16, 16, 16, 0.8);
+                backdrop-filter: blur(10px);
+            }
         }
     </style>
 </head>
@@ -279,7 +318,7 @@
     <main class="relative z-10">
         <!-- Hero Section -->
         <section id="home" class="min-h-screen flex items-center overflow-hidden relative">
-            <div class="container mx-auto px-6">
+            <div class="container mx-auto px-6 pt-24 md:pt-0">
                 <div class="flex flex-col md:flex-row items-center gap-12">
                     <!-- Left Column (Text) -->
                     <div class="md:w-3/5 lg:w-1/2 text-center md:text-left">
@@ -388,62 +427,64 @@
                     <h2 class="text-3xl md:text-5xl font-bold text-white animate-target fade-in-up">What Server Owners Say</h2>
                     <p class="text-base md:text-lg text-gray-400 mt-4 max-w-xl mx-auto animate-target fade-in-up" style="transition-delay: 0.2s;">Feedback from users who trust my plugins.</p>
                 </div>
-                <!-- Swiper -->
-                <div class="swiper-container animate-target fade-in-up" style="transition-delay: 0.3s;">
-                    <div class="swiper-wrapper">
-                        <!-- Slide 1 -->
-                        <div class="swiper-slide">
-                            <div class="testimonial-card flex flex-col">
-                                <p class="text-gray-400 italic mb-6 flex-grow">"This is perfect for my server!! It's very supportive, especially for economy servers... Highly recommended."</p>
-                                <div class="mt-auto">
-                                    <p class="font-bold text-white">- Meakhhime</p>
-                                    <p class="text-sm text-orange-500">on Harvest Flow</p>
+                <!-- Slider main container -->
+                <div class="relative w-full overflow-hidden">
+                    <div class="swiper-container animate-target fade-in-up" style="transition-delay: 0.3s;">
+                        <div class="swiper-wrapper">
+                            <!-- Slide 1 -->
+                            <div class="swiper-slide">
+                                <div class="testimonial-card flex flex-col h-full">
+                                    <p class="text-gray-400 italic mb-6 flex-grow">"This is perfect for my server!! It's very supportive, especially for economy servers... Highly recommended."</p>
+                                    <div class="mt-auto">
+                                        <p class="font-bold text-white">- Meakhhime</p>
+                                        <p class="text-sm text-orange-500">on Harvest Flow</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Slide 2 -->
+                            <div class="swiper-slide">
+                                <div class="testimonial-card flex flex-col h-full">
+                                    <p class="text-gray-400 italic mb-6 flex-grow">"Nice plugin, easy to implement on my server, Fast support from dev. Recommended!"</p>
+                                    <div class="mt-auto">
+                                        <p class="font-bold text-white">- vinnc6</p>
+                                        <p class="text-sm text-orange-500">on Harvest Flow</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Slide 3 -->
+                            <div class="swiper-slide">
+                                <div class="testimonial-card flex flex-col h-full">
+                                    <p class="text-gray-400 italic mb-6 flex-grow">"very good, very good and satisfying plugin for your own server, I highly recommend this plugin"</p>
+                                    <div class="mt-auto">
+                                        <p class="font-bold text-white">- Meakhime</p>
+                                        <p class="text-sm text-orange-500">on NightMarket</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Slide 4 -->
+                            <div class="swiper-slide">
+                                <div class="testimonial-card flex flex-col h-full">
+                                    <p class="text-gray-400 italic mb-6 flex-grow">"Super easy to set up, even for someone who isn’t great with configs. The shop feature is flexible, and I love that everything is highly configurable."</p>
+                                    <div class="mt-auto">
+                                        <p class="font-bold text-white">- ShiroZell</p>
+                                        <p class="text-sm text-orange-500">on DeluxeMobCoins</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Slide 5 -->
+                            <div class="swiper-slide">
+                                <div class="testimonial-card flex flex-col h-full">
+                                    <p class="text-gray-400 italic mb-6 flex-grow">"Special thanks to the creator of this plugin, it really helped me in giving appropriate rewards to players"</p>
+                                    <div class="mt-auto">
+                                        <p class="font-bold text-white">- Meyats</p>
+                                        <p class="text-sm text-orange-500">on DeluxeMobCoins</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Slide 2 -->
-                        <div class="swiper-slide">
-                            <div class="testimonial-card flex flex-col">
-                                <p class="text-gray-400 italic mb-6 flex-grow">"Nice plugin, easy to implement on my server, Fast support from dev. Recommended!"</p>
-                                <div class="mt-auto">
-                                    <p class="font-bold text-white">- vinnc6</p>
-                                    <p class="text-sm text-orange-500">on Harvest Flow</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Slide 3 -->
-                        <div class="swiper-slide">
-                            <div class="testimonial-card flex flex-col">
-                                <p class="text-gray-400 italic mb-6 flex-grow">"very good, very good and satisfying plugin for your own server, I highly recommend this plugin"</p>
-                                <div class="mt-auto">
-                                    <p class="font-bold text-white">- Meakhime</p>
-                                    <p class="text-sm text-orange-500">on NightMarket</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Slide 4 -->
-                        <div class="swiper-slide">
-                            <div class="testimonial-card flex flex-col">
-                                <p class="text-gray-400 italic mb-6 flex-grow">"Super easy to set up, even for someone who isn’t great with configs. The shop feature is flexible, and I love that everything is highly configurable."</p>
-                                <div class="mt-auto">
-                                    <p class="font-bold text-white">- ShiroZell</p>
-                                    <p class="text-sm text-orange-500">on DeluxeMobCoins</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Slide 5 -->
-                        <div class="swiper-slide">
-                            <div class="testimonial-card flex flex-col">
-                                <p class="text-gray-400 italic mb-6 flex-grow">"Special thanks to the creator of this plugin, it really helped me in giving appropriate rewards to players"</p>
-                                <div class="mt-auto">
-                                    <p class="font-bold text-white">- Meyats</p>
-                                    <p class="text-sm text-orange-500">on DeluxeMobCoins</p>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
                     </div>
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </section>
@@ -497,6 +538,7 @@
             // --- Swiper Initialization ---
             const swiper = new Swiper('.swiper-container', {
                 loop: true,
+                autoHeight: true, // Fix for slide height jumping
                 autoplay: {
                     delay: 5000,
                     disableOnInteraction: false,
@@ -540,26 +582,21 @@
 
             // --- Header Scroll Effect ---
             const header = document.getElementById('header');
-            window.addEventListener('scroll', () => {
+            const initialHeaderBg = 'transparent';
+            const scrolledHeaderBg = 'rgba(18, 18, 18, 0.8)';
+
+            function handleScroll() {
                 if (window.scrollY > 50) {
-                    header.style.backgroundColor = 'rgba(18, 18, 18, 0.8)';
+                    header.style.backgroundColor = scrolledHeaderBg;
                     header.style.backdropFilter = 'blur(10px)';
                 } else {
-                    header.style.backgroundColor = 'transparent';
-                    header.style.backdropFilter = 'none';
-                }
-            });
-
-            // --- Scroll Animations ---
-            const targets = document.querySelectorAll('.animate-target');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+                    if (window.innerWidth >= 768) { // Only for desktop
+                        header.style.backgroundColor = initialHeaderBg;
+                        header.style.backdropFilter = 'none';
                     }
-                });
-            }, { threshold: 0.1 });
-            targets.forEach(target => observer.observe(target));
+                }
+            }
+            window.addEventListener('scroll', handleScroll);
             
             // --- Smooth Scrolling ---
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -571,6 +608,17 @@
                     }
                 });
             });
+
+             // --- Scroll Animations ---
+            const targets = document.querySelectorAll('.animate-target');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            targets.forEach(target => observer.observe(target));
         });
     </script>
 </body>
