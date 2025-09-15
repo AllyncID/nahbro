@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animasi Teks Kode</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Pengaturan Dasar Halaman */
+        :root {
+            --background-color: #4C0000; /* Merah Maroon Gelap */
+            --code-color: #00FF41; /* Hijau Neon */
+            --cursor-color: #00FF41;
+            --final-text-color: #00FF41; /* Emas */
+            --glow-color: rgba(146, 29, 29, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--code-color);
+            font-family: 'Roboto Mono', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Kontainer Utama untuk Animasi */
+        .animation-container {
+            width: 90%;
+            max-width: 800px;
+            padding: 2rem;
+            text-align: left;
+            position: relative;
+        }
+
+        /* Elemen Teks Animasi */
+        #animated-text {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            white-space: pre-wrap; /* Agar baris baru berfungsi */
+            word-break: break-all;
+            height: 250px; /* Beri tinggi agar layout stabil */
+            display: inline; /* Agar cursor bisa menempel di akhir */
+        }
+        
+        /* Kursor Pengetikan */
+        .typing-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.5rem;
+            background-color: var(--cursor-color);
+            animation: blink 1s step-end infinite;
+            margin-left: 5px;
+            vertical-align: bottom;
+        }
+
+        @keyframes blink {
+            from, to { background-color: transparent; }
+            50% { background-color: var(--cursor-color); }
+        }
+
+        /* Gaya untuk Teks Final */
+        #animated-text.final-state {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(1rem, 8vw, 4.5rem);
+            color: var(--final-text-color);
+            text-align: center;
+            white-space: normal;
+            display: block;
+            width: 100%;
+            animation: text-glow 2s ease-in-out infinite alternate;
+            line-height: 1.2;
+        }
+        
+        /* Animasi Cahaya untuk Teks Final */
+        @keyframes text-glow {
+            from {
+                text-shadow: 0 0 10px var(--final-text-color), 0 0 20px var(--final-text-color), 0 0 30px var(--glow-color);
+            }
+            to {
+                text-shadow: 0 0 20px var(--final-text-color), 0 0 30px var(--glow-color), 0 0 40px var(--glow-color);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="animation-container">
+        <!-- Teks akan diisi oleh JavaScript -->
+        <span id="animated-text"></span>
+        <!-- Kursor akan muncul dan hilang sesuai state animasi -->
+        <span class="typing-cursor" id="cursor"></span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const textElement = document.getElementById('animated-text');
+            const cursorElement = document.getElementById('cursor');
+
+            const codeLines = [
+                'const createMagic = () => {',
+                '  let beauty = find("inner_soul");',
+                '  let cuteness = find("smile");',
+                '  ',
+                '  if (beauty && cuteness) {',
+                '    return "Perfect Combination";',
+                '  }',
+                '};',
+                '// Initializing process...',
+                'createMagic();'
+            ];
+            
+            const targetPhrase = "YAA CANTIK DAN LUCU";
+            const chars = '!<>-_\\/[]{}—=+*^?#________';
+            const typingSpeed = 50; // ms
+            const lineDelay = 200; // ms
+            const transformDuration = 2500; // ms
+            const frameRate = 1000 / 60; // 60fps
+
+            class TextTransformer {
+                constructor(el, finalPhrase) {
+                    this.el = el;
+                    this.finalPhrase = finalPhrase;
+                    this.chars = chars;
+                    this.queue = [];
+                    
+                    // Isi antrian dengan karakter acak sesuai panjang frasa asli
+                    let originalText = this.el.textContent;
+                    // Pad frasa target atau teks asli agar panjangnya sama
+                    if (originalText.length > finalPhrase.length) {
+                        this.finalPhrase = finalPhrase.padEnd(originalText.length, ' ');
+                    } else {
+                        originalText = originalText.padEnd(finalPhrase.length, ' ');
+                    }
+                    this.el.textContent = originalText;
+
+                    for (let i = 0; i < this.finalPhrase.length; i++) {
+                        const from = originalText[i] || '';
+                        const to = this.finalPhrase[i] || '';
+                        const start = Math.floor(Math.random() * 40);
+                        const end = start + Math.floor(Math.random() * 40);
+                        this.queue.push({ from, to, start, end, char: from });
+                    }
+                    
+                    this.frame = 0;
+                    this.transform = this.transform.bind(this);
+                    this.intervalId = setInterval(this.transform, frameRate);
+                }
+
+                transform() {
+                    let complete = true;
+                    let output = '';
+
+                    for (let i = 0; i < this.queue.length; i++) {
+                        let { to, start, end, char } = this.queue[i];
+                        
+                        if (this.frame >= end) {
+                            char = to; // Karakter sudah final
+                        } else if (this.frame >= start) {
+                            // Tampilkan karakter acak selama transisi
+                             char = this.chars[Math.floor(Math.random() * this.chars.length)];
+                        }
+                        
+                        if (char !== to) {
+                           complete = false;
+                        }
+
+                        output += char;
+                        this.queue[i].char = char;
+                    }
+                    
+                    this.el.textContent = output;
+
+                    if (complete) {
+                        clearInterval(this.intervalId);
+                        this.el.classList.add('final-state');
+                    }
+
+                    this.frame++;
+                }
+            }
+            
+            function typeLine(lineIndex = 0) {
+                if (lineIndex >= codeLines.length) {
+                    // Pengetikan selesai, mulai transformasi
+                    setTimeout(startTransformation, 500);
+                    return;
+                }
+
+                const line = codeLines[lineIndex];
+                let charIndex = 0;
+                const intervalId = setInterval(() => {
+                    if (charIndex < line.length) {
+                        textElement.textContent += line[charIndex];
+                        charIndex++;
+                    } else {
+                        clearInterval(intervalId);
+                        textElement.textContent += '\n'; // Pindah baris
+                        setTimeout(() => typeLine(lineIndex + 1), lineDelay);
+                    }
+                }, typingSpeed);
+            }
+
+            function startTransformation() {
+                cursorElement.style.display = 'none'; // Sembunyikan kursor
+                new TextTransformer(textElement, targetPhrase);
+            }
+
+            // Mulai animasi
+            typeLine();
+        });
+    </script>
+</body>
+</html>
+
