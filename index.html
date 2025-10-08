@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vortex Host - Premium Game Hosting</title>
+    <title>Skyes Hosting - Premium Hosting Solutions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
@@ -149,6 +149,10 @@
         .nav-links {
             display: flex;
             list-style: none;
+            align-items: center;
+        }
+        .nav-links li {
+            position: relative;
         }
         .nav-links a {
             color: var(--text-secondary);
@@ -158,11 +162,13 @@
             position: relative;
             padding: 5px 0;
             transition: color var(--transition-speed) ease;
+            display: flex;
+            align-items: center;
         }
         .nav-links a:hover {
             color: var(--text-primary);
         }
-        .nav-links a::after {
+        .nav-links > li > a::after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -174,9 +180,43 @@
             transform-origin: right;
             transition: transform 0.3s ease-out;
         }
-        .nav-links a:hover::after {
+        .nav-links > li > a:hover::after {
             transform: scaleX(1);
             transform-origin: left;
+        }
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 150%;
+            left: 0;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px var(--shadow-color);
+            list-style: none;
+            padding: 10px 0;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        }
+        .nav-links li:hover > .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            top: 100%;
+        }
+        .dropdown-menu li a {
+            padding: 10px 20px;
+            width: 100%;
+            font-weight: 400;
+        }
+        .dropdown-menu li a:hover {
+            background-color: var(--bg-secondary);
+        }
+        .dropdown-menu li a::after {
+            display: none; /* No underline for dropdown items */
         }
         .nav-actions {
             display: flex;
@@ -231,7 +271,7 @@
 
         /* Hero Section */
         .hero {
-            min-height: 100vh;
+            min-height: 90vh;
             display: flex;
             align-items: center;
             text-align: center;
@@ -292,20 +332,7 @@
             transform: translateY(20px);
             animation: fade-up 0.8s 0.5s forwards cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .hero .typing-container {
-            display: inline-block;
-        }
-        .typing-cursor {
-            display: inline-block;
-            width: 3px;
-            height: 1em;
-            background-color: var(--accent-primary);
-            animation: blink 0.7s infinite;
-        }
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-
+       
         .hero p {
             font-size: 1.25rem;
             color: var(--text-secondary);
@@ -420,46 +447,17 @@
             transform: translateY(0);
         }
 
-        /* Games Section */
-        .games-marquee {
-            width: 100%;
-            overflow: hidden;
-            -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
-            mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
-        }
-        .games-track {
-            display: flex;
-            width: fit-content;
-            animation: marquee 40s linear infinite;
-        }
-        .games-track:hover {
-            animation-play-state: paused;
-        }
-        .game-logo {
-            height: 60px;
-            margin: 0 40px;
-            filter: grayscale(1);
-            opacity: 0.6;
-            transition: all var(--transition-speed) ease;
-        }
-        .game-logo:hover {
-            filter: grayscale(0);
-            opacity: 1;
-            transform: scale(1.1);
-        }
-        @keyframes marquee {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
-
         /* Features Section */
+        #features {
+            background-color: var(--bg-secondary);
+        }
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
         .feature-card {
-            background-color: var(--bg-secondary);
+            background-color: var(--bg-primary);
             padding: 30px;
             border-radius: 20px;
             border: 1px solid var(--border-color);
@@ -484,118 +482,75 @@
         }
 
         /* Pricing Section */
-        .pricing-toggle {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 200px;
-            height: 40px;
-            background-color: var(--bg-secondary);
-            border-radius: 20px;
-            cursor: pointer;
-            border: 1px solid var(--border-color);
-        }
-        .toggle-slider-bg {
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: calc(50% - 4px);
-            height: calc(100% - 4px);
-            background-color: var(--accent-primary);
-            border-radius: 18px;
-            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-        .toggle-switch.yearly .toggle-slider-bg {
-            transform: translateX(100px);
-        }
-        .toggle-labels {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            height: 100%;
-        }
-        .toggle-label {
-            width: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            transition: color 0.3s ease;
-            color: var(--text-secondary);
-        }
-        .toggle-label.active {
-            color: white;
-        }
-        .toggle-switch:not(.yearly) .monthly-label,
-        .toggle-switch.yearly .yearly-label {
-            color: white;
-        }
-
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
-            align-items: center;
+            justify-content: center;
         }
         .pricing-card {
             background-color: var(--bg-secondary);
             padding: 40px;
             border-radius: 20px;
             border: 1px solid var(--border-color);
-            text-align: center;
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
-        .pricing-card.popular {
-            transform: scale(1.05);
-            border-color: var(--accent-primary);
+        .pricing-card:hover {
+            transform: translateY(-10px);
             box-shadow: 0 20px 40px var(--shadow-color);
         }
         .pricing-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 10px;
         }
-        .price {
-            font-size: 3rem;
-            font-weight: 700;
-            margin: 20px 0;
-            position: relative;
+        .pricing-card .description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            flex-grow: 1;
         }
-        .price span {
-            font-size: 1rem;
+        .price {
+            font-size: 1.5rem;
             font-weight: 500;
+            margin: 20px 0;
             color: var(--text-secondary);
         }
-        .price .plan-price { display: none; }
-        .price .plan-price.active { display: inline-block; }
+        .price span {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
         .features-list {
             list-style: none;
             margin: 30px 0;
+            text-align: left;
         }
         .features-list li {
             margin-bottom: 15px;
             display: flex;
             align-items: center;
-            justify-content: center;
         }
         .features-list li svg {
             width: 18px;
             height: 18px;
             color: var(--accent-primary);
             margin-right: 10px;
+            flex-shrink: 0;
         }
+        .pricing-card .btn {
+            margin-top: auto;
+        }
+
 
         /* Stats Section */
         #stats {
-            background-color: var(--bg-secondary);
+            background-color: var(--bg-primary);
         }
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 30px;
             text-align: center;
         }
@@ -605,50 +560,6 @@
         }
         .stat-item p {
             color: var(--text-secondary);
-        }
-
-        /* Testimonials Section */
-        .testimonial-slider {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-        .testimonial-track {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .testimonial-card {
-            flex: 0 0 100%;
-            padding: 40px;
-            text-align: center;
-        }
-        .testimonial-card blockquote {
-            font-size: 1.25rem;
-            font-style: italic;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            border: none;
-        }
-        .testimonial-author {
-            font-weight: 600;
-        }
-        .slider-dots {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .slider-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: var(--border-color);
-            margin: 0 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .slider-dot.active {
-            background-color: var(--accent-primary);
         }
 
         /* FAQ Section */
@@ -689,16 +600,21 @@
         /* Footer */
         .footer {
             background-color: var(--bg-secondary);
-            padding: 80px 0;
+            padding: 80px 0 40px;
         }
         .footer-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
+            grid-template-columns: 2fr 1fr;
             gap: 40px;
         }
         .footer-col h4 {
             font-size: 1.2rem;
             margin-bottom: 20px;
+        }
+        .footer-col p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            max-width: 400px;
         }
         .footer-col ul {
             list-style: none;
@@ -706,33 +622,17 @@
         .footer-col ul li {
             margin-bottom: 10px;
         }
+        .footer-col ul li a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
         .footer-col a {
             color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.3s ease;
         }
         .footer-col a:hover {
-            color: var(--accent-primary);
-        }
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        .social-icons a {
-            display: block;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: 50%;
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-        .social-icons a:hover {
-            transform: translateY(-5px);
             color: var(--accent-primary);
         }
         .footer-bottom {
@@ -773,27 +673,7 @@
         .scroll-to-top {
             right: 30px;
         }
-        .live-chat {
-            right: 100px;
-        }
-        .live-chat::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--accent-primary);
-            border-radius: 50%;
-            animation: pulse-ring 2s infinite;
-            z-index: -1;
-        }
-        @keyframes pulse-ring {
-            0% { transform: scale(0.95); opacity: 0.7; }
-            70% { transform: scale(1.4); opacity: 0; }
-            100% { transform: scale(0.95); opacity: 0; }
-        }
-
+       
         /* Animation Keyframes */
         @keyframes fade-up {
             from { opacity: 0; transform: translateY(20px); }
@@ -804,28 +684,95 @@
             to { opacity: 1; }
         }
 
+        /* Mobile Nav - Hide on Desktop */
+        .mobile-nav {
+            display: none;
+        }
+
         /* Responsive Design */
         @media (max-width: 1024px) {
-            .pricing-grid { grid-template-columns: 1fr; }
-            .pricing-card.popular { transform: scale(1); }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .pricing-grid { grid-template-columns: 1fr 1fr; }
+            .features-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
         }
 
         @media (max-width: 768px) {
-            .nav-links, .nav-actions .btn-secondary { display: none; }
+            .nav-links, .nav-actions .btn { display: none; }
             .nav-actions { gap: 1rem; }
             .hamburger { display: block; }
-            .hamburger svg { width: 24px; height: 24px; }
+            .hamburger svg { width: 24px; height: 24px; color: var(--text-primary); }
             
             .hero h1 { font-size: 2.5rem; }
             .hero p { font-size: 1.1rem; }
+            
+            .pricing-grid { grid-template-columns: 1fr; }
 
             .stats-grid { grid-template-columns: 1fr 1fr; }
             .footer-grid { grid-template-columns: 1fr; text-align: center; }
-            .footer-col ul { padding-left: 0; }
-            .social-icons { justify-content: center; }
+            .footer-col p { margin-left: auto; margin-right: auto; }
+            .footer-col ul li a { justify-content: center; }
 
-            .live-chat { right: 30px; bottom: 100px; }
+            .mobile-nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: var(--bg-primary);
+                z-index: 1001;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transform: translateX(100%);
+                transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            }
+            .mobile-nav.open {
+                transform: translateX(0);
+            }
+            .mobile-nav .nav-links {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .mobile-nav .nav-links a {
+                font-size: 1.5rem;
+                color: var(--text-primary);
+            }
+            .mobile-nav .nav-links .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                background: none;
+                border: none;
+                box-shadow: none;
+                padding: 10px 0 0;
+                display: none;
+                text-align: center;
+            }
+            .mobile-nav .nav-links li.open > .dropdown-menu {
+                display: block;
+            }
+            .mobile-nav .nav-actions {
+                margin-top: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+            }
+            .mobile-nav .nav-actions .btn { display: inline-block; }
+            .close-btn {
+                position: absolute;
+                top: 30px;
+                right: 30px;
+                cursor: pointer;
+            }
+            .close-btn svg {
+                width: 28px;
+                height: 28px;
+                color: var(--text-primary);
+            }
         }
         
     </style>
@@ -849,16 +796,39 @@
             <nav class="nav">
                 <a href="#" class="logo">
                     <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.8839 8.23212C16.8839 8.23212 19.5892 12.0001 16.8839 15.7679C14.1785 19.5358 8.11601 19.5358 5.41065 15.7679C2.70529 12.0001 5.41065 8.23212 8.11601 4.46431C10.8214 0.696496 16.8839 8.23212 16.8839 8.23212Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.11613 15.7678C7.11613 15.7678 4.41077 11.9999 7.11613 8.23207C9.82149 4.46425 15.884 4.46425 18.5893 8.23207C21.2947 11.9999 18.5893 15.7678 15.884 19.5356C13.1786 23.3034 7.11613 15.7678 7.11613 15.7678Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    Vortex Host
+                    Skyes Hosting
                 </a>
                 <ul class="nav-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#stats">Stats</a></li>
-                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#">Home</a></li>
+                    <li>
+                        <a href="#">Game Hosting</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Minecraft</a></li>
+                            <li><a href="#">Terraria</a></li>
+                            <li><a href="#">Valheim</a></li>
+                            <li><a href="#">Project Zomboid</a></li>
+                            <li><a href="#">Palworld</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                         <ul class="dropdown-menu">
+                            <li><a href="#">Web Hosting C Panel</a></li>
+                            <li><a href="#">Domains</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Support</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Guide</a></li>
+                            <li><a href="#">Network Status</a></li>
+                            <li><a href="#">Open Ticket</a></li>
+                            <li><a href="#">About Us</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <div class="nav-actions">
-                    <a href="#" class="btn btn-secondary">Login</a>
+                    <a href="#" class="btn btn-primary">Clients Area</a>
                     <div class="theme-toggle" id="theme-toggle">
                         <div class="toggle-slider">
                            <svg class="sun-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.95a1 1 0 010-1.414l.707-.707a1 1 0 011.414 1.414l-.707.707a1 1 0 01-1.414 0zM2 11a1 1 0 100-2H1a1 1 0 100 2h1zM4.95 5.05a1 1 0 011.414 0l.707.707a1 1 0 01-1.414 1.414l-.707-.707a1 1 0 010-1.414z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
@@ -873,6 +843,46 @@
         </div>
     </header>
 
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobile-nav">
+        <div class="close-btn" id="close-btn">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li>
+                <a href="#">Game Hosting</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Minecraft</a></li>
+                    <li><a href="#">Terraria</a></li>
+                    <li><a href="#">Valheim</a></li>
+                    <li><a href="#">Project Zomboid</a></li>
+                    <li><a href="#">Palworld</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Services</a>
+                 <ul class="dropdown-menu">
+                    <li><a href="#">Web Hosting C Panel</a></li>
+                    <li><a href="#">Domains</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Support</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Guide</a></li>
+                    <li><a href="#">Network Status</a></li>
+                    <li><a href="#">Open Ticket</a></li>
+                    <li><a href="#">About Us</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="nav-actions">
+            <a href="#" class="btn btn-primary">Clients Area</a>
+        </div>
+    </div>
+
+
     <main>
         <!-- Hero Section -->
         <section class="hero">
@@ -882,84 +892,15 @@
             </div>
             <div class="container">
                 <div class="hero-content">
-                    <h1>Instant, Powerful Game Servers for <span class="typing-container" id="typing-text"></span><span class="typing-cursor"></span></h1>
-                    <p>Experience zero-lag, high-performance hosting for your favorite games. Deploy in seconds, dominate forever.</p>
+                    <h1>Reliable, High-Performance Hosting Solutions</h1>
+                    <p>Experience lightning speed, robust security, and unparalleled uptime for your website or game server.</p>
                     <div class="cta-buttons">
-                        <a href="#pricing" class="btn btn-primary">View Plans</a>
-                        <a href="#" class="btn btn-secondary">Get Started Free</a>
+                        <a href="#pricing" class="btn btn-primary">View Hosting Plans</a>
                     </div>
                 </div>
             </div>
             <div class="scroll-down">
-                <a href="#games"></a>
-            </div>
-        </section>
-
-        <!-- Supported Games Section -->
-        <section id="games" class="section fade-in-section">
-            <div class="container">
-                <div class="games-marquee">
-                    <div class="games-track">
-                        <!-- Logos are duplicated for smooth infinite scroll -->
-                        <img src="https://placehold.co/200x60/f0f0f0/cccccc?text=Minecraft" alt="Minecraft" class="game-logo">
-                        <img src="https://placehold.co/200x60/f0f0f0/cccccc?text=Rust" alt="Rust" class="game-logo">
-                        <img src="https://placehold.co/200x60/f0f0f0/cccccc?text=ARK" alt="ARK" class="game-logo">
-                        <img src="https://placehold.co/200x60/f0f0f0/cccccc?text=CS2" alt="CS2" class="game-logo">
-                        <img src="https://placehold.co/200x60/f0f0f0/cccccc?text=Valheim" alt="Valheim" class="game-logo">
-                        <img src="https://placehold.co/200x60/f0f0f0/cccccc?text=Palworld" alt="Palworld" class="game-logo">
-                        <img src="https://placehold.co/200x60/f0f0f0/cccccc?text=Terraria" alt="Terraria" class="game-logo">
-                        
-                        <img src="https://placehold.co/200x60/f0f0f0/cccccc?text=Minecraft" alt="Minecraft" class="game-logo">
-                        <img src="https://placehold.co/200x60/f0f0f0/cccccc?text=Rust" alt="Rust" class="game-logo">
-                        <img src="https://placehold.co/200x60/f0f0f0/cccccc?text=ARK" alt="ARK" class="game-logo">
-                        <img src="https://placehold.co/200x60/f0f0f0/cccccc?text=CS2" alt="CS2" class="game-logo">
-                        <img src="https://placehold.co/200x60/f0f0f0/cccccc?text=Valheim" alt="Valheim" class="game-logo">
-                        <img src="https://placehold.co/200x60/f0f0f0/cccccc?text=Palworld" alt="Palworld" class="game-logo">
-                        <img src="https://placehold.co/200x60/f0f0f0/cccccc?text=Terraria" alt="Terraria" class="game-logo">
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Features Section -->
-        <section id="features" class="section fade-in-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Everything You Need to Win</h2>
-                    <p>Our platform is packed with features designed for performance, security, and ease of use.</p>
-                </div>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        <h3>Instant Setup</h3>
-                        <p>Your server is online within seconds of purchase. No waiting, just playing.</p>
-                    </div>
-                    <div class="feature-card">
-                         <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                        <h3>DDoS Protection</h3>
-                        <p>Advanced, always-on protection keeps your server safe from attacks.</p>
-                    </div>
-                    <div class="feature-card">
-                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3m0 18a9 9 0 009-9m-9 9a9 9 0 00-9-9"></path></svg>
-                        <h3>Global Network</h3>
-                        <p>Choose from dozens of locations worldwide for the lowest possible latency.</p>
-                    </div>
-                    <div class="feature-card">
-                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                        <h3>Easy Control Panel</h3>
-                        <p>A powerful and intuitive panel to manage your server effortlessly.</p>
-                    </div>
-                    <div class="feature-card">
-                         <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5V4H4zm0 0l6 6m-6 0h5v5H4v-5zm0 0l6-6m6 0v5h5V4h-5zm0 0l-6 6m6 0h5v5h-5v-5zm0 0l-6-6"></path></svg>
-                        <h3>1-Click Modpacks</h3>
-                        <p>Install hundreds of popular modpacks and plugins with a single click.</p>
-                    </div>
-                    <div class="feature-card">
-                         <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                        <h3>24/7 Support</h3>
-                        <p>Our expert support team is always available to help you, day or night.</p>
-                    </div>
-                </div>
+                <a href="#pricing"></a>
             </div>
         </section>
 
@@ -967,59 +908,34 @@
         <section id="pricing" class="section fade-in-section">
             <div class="container">
                 <div class="section-header">
-                    <h2>Simple, Transparent Pricing</h2>
+                    <h2>Hosting Plans</h2>
                     <p>Choose the perfect plan for your needs. No hidden fees, ever.</p>
-                </div>
-
-                <div class="pricing-toggle">
-                    <div class="toggle-switch" id="pricing-toggle-switch">
-                        <div class="toggle-slider-bg"></div>
-                        <div class="toggle-labels">
-                            <div class="toggle-label monthly-label active">Monthly</div>
-                            <div class="toggle-label yearly-label">Yearly (Save 20%)</div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="pricing-grid">
                     <div class="pricing-card">
-                        <h3>Starter</h3>
-                        <div class="price">
-                            <div class="plan-price monthly active">$5<span>/mo</span></div>
-                            <div class="plan-price yearly">$48<span>/yr</span></div>
-                        </div>
+                        <h3>Game Hosting</h3>
+                        <p class="description">Hosting server game dengan performa tinggi untuk pengalaman bermain tanpa lag.</p>
+                        <div class="price">Mulai dari <span>Rp 25.000</span> / bulan</div>
                         <ul class="features-list">
-                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>4GB RAM</li>
-                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>40GB NVMe SSD</li>
-                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>10 Player Slots</li>
+                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V3m0 18v-3"></path><path d="M12 16a4 4 0 100-8 4 4 0 000 8z"></path></svg>Powerful Processor</li>
+                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>12.5Tb/s DDoS Protection</li>
+                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>99.9% Uptime</li>
+                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>Instant Setup</li>
                         </ul>
-                        <a href="#" class="btn btn-secondary">Get Started</a>
-                    </div>
-                    <div class="pricing-card popular">
-                        <h3>Pro</h3>
-                        <div class="price">
-                            <div class="plan-price monthly active">$15<span>/mo</span></div>
-                            <div class="plan-price yearly">$144<span>/yr</span></div>
-                        </div>
-                        <ul class="features-list">
-                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>8GB RAM</li>
-                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>100GB NVMe SSD</li>
-                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Unlimited Players</li>
-                        </ul>
-                        <a href="#" class="btn btn-primary">Choose Plan</a>
+                        <a href="#" class="btn btn-secondary">Choose Plan</a>
                     </div>
                     <div class="pricing-card">
-                        <h3>Elite</h3>
-                        <div class="price">
-                            <div class="plan-price monthly active">$30<span>/mo</span></div>
-                            <div class="plan-price yearly">$288<span>/yr</span></div>
-                        </div>
+                        <h3>Web Hosting</h3>
+                        <p class="description">Solusi hosting web cepat dan andal dengan panel kontrol yang mudah digunakan.</p>
+                        <div class="price">Mulai dari <span>Rp 15.000</span> / bulan</div>
                         <ul class="features-list">
-                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>16GB RAM</li>
-                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Unmetered NVMe SSD</li>
-                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Dedicated IP</li>
+                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>Lightning Speed</li>
+                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>One Click Installs</li>
+                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>SSL Certificate</li>
+                            <li><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>cPanel</li>
                         </ul>
-                        <a href="#" class="btn btn-secondary">Get Started</a>
+                        <a href="#" class="btn btn-secondary">Choose Plan</a>
                     </div>
                 </div>
             </div>
@@ -1030,49 +946,74 @@
             <div class="container">
                 <div class="stats-grid">
                     <div class="stat-item">
-                        <h3 class="stat-counter" data-target="250000">0</h3>
-                        <p>Servers Hosted</p>
+                        <h3 class="stat-counter" data-target="1436">0</h3>
+                        <p>Total Customers</p>
                     </div>
                     <div class="stat-item">
-                        <h3 class="stat-counter" data-target="45">0</h3>
-                        <p>Global Locations</p>
+                        <h3 class="stat-counter" data-target="1595">0</h3>
+                        <p>Servers Deployed</p>
                     </div>
                     <div class="stat-item">
-                        <h3 class="stat-counter" data-target="99.9">0</h3>
-                        <p>% Uptime Guarantee</p>
+                        <h3 class="stat-counter" data-target="2">0</h3>
+                        <p>Datacenters</p>
                     </div>
                     <div class="stat-item">
-                        <h3 class="stat-counter" data-target="15">0</h3>
-                        <p>Tbps+ Network</p>
+                        <h3 class="stat-counter" data-target="40014">0</h3>
+                        <p>DDOS Attack Mitigated</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Testimonials Section -->
-        <section id="testimonials" class="section fade-in-section">
+        <!-- Features Section -->
+        <section id="features" class="section fade-in-section">
             <div class="container">
-                 <div class="section-header">
-                    <h2>Loved by Gamers Worldwide</h2>
-                    <p>Don't just take our word for it. Here's what our customers are saying.</p>
+                <div class="section-header">
+                    <h2>Hosting Features</h2>
+                    <p>Our platform is packed with features designed for performance, security, and ease of use.</p>
                 </div>
-                <div class="testimonial-slider">
-                    <div class="testimonial-track">
-                        <div class="testimonial-card">
-                            <blockquote>"The best hosting I've ever used. My Minecraft server has never run smoother. The control panel is a dream to use!"</blockquote>
-                            <p class="testimonial-author">- Alex_Gamer_YT</p>
-                        </div>
-                        <div class="testimonial-card">
-                            <blockquote>"Zero lag, instant setup, and amazing support. I moved my entire Rust community over to Vortex Host and couldn't be happier."</blockquote>
-                            <p class="testimonial-author">- SarahPlays</p>
-                        </div>
-                        <div class="testimonial-card">
-                            <blockquote>"Their DDoS protection is no joke. We got hit by a massive attack and didn't even notice a blip in performance. Highly recommend."</blockquote>
-                            <p class="testimonial-author">- Clan[LEADER]</p>
-                        </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V3m0 18v-3m-4-4h8"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16a4 4 0 100-8 4 4 0 000 8z"></path></svg>
+                        <h3>High Performance Hardware</h3>
+                        <p>Kami menggunakan processor AMD Ryzen terbaru, Memory dan SSD kelas Enterprise untuk kelancaran server kamu.</p>
+                    </div>
+                    <div class="feature-card">
+                         <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        <h3>12.5Tb/s Anti-DDOS</h3>
+                        <p>Perlindungan kelas dunia dengan Scrubbing Center di Indonesia dan 12 tempat lainnya, memastikan server kamu berjalan tanpa hambatan.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                        <h3>Uptime 99.9%</h3>
+                        <p>Server kamu akan tersedia sepanjang waktu, sistem monitoring 24/7 kami membantu mendeteksi potensi masalah.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        <h3>Instant Setup</h3>
+                        <p>Tidak perlu menunggu lama—begitu pembayaran selesai, layanan kamu langsung aktif dalam hitungan menit.</p>
+                    </div>
+                    <div class="feature-card">
+                         <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 12L3 8m4 8l4-8m4 8V4m0 12l4-8m-4 8l-4-8"></path></svg>
+                        <h3>Scalable Resource</h3>
+                        <p>Butuh performa lebih tinggi? Kamu bisa upgrade atau downgrade RAM, CPU, atau storage kapan saja tanpa downtime.</p>
+                    </div>
+                    <div class="feature-card">
+                         <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        <h3>Monitoring Real-time</h3>
+                        <p>Usage semua node server dapat kamu pantau 24/7 dengan sistem real-time monitoring kami.</p>
+                    </div>
+                    <div class="feature-card">
+                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                        <h3>Modern Control Panel</h3>
+                        <p>Kontrol semuanya dalam satu panel—Tampilan sederhana dan user-friendly, bahkan untuk pemula sekalipun.</p>
+                    </div>
+                     <div class="feature-card">
+                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3m0 18a9 9 0 009-9m-9 9a9 9 0 00-9-9"></path></svg>
+                        <h3>10Gbps Network</h3>
+                        <p>Dengan backbone jaringan 10Gbps dan peering langsung ke Telkom Indonesia (Eyeball), pengguna lokal mendapatkan latency rendah.</p>
                     </div>
                 </div>
-                <div class="slider-dots"></div>
             </div>
         </section>
 
@@ -1086,38 +1027,74 @@
                 <div class="faq-container">
                     <div class="faq-item">
                         <div class="faq-question">
-                            <span>What games do you support?</span>
+                            <span>Apakah server langsung aktif setelah pembayaran?</span>
                             <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                         </div>
                         <div class="faq-answer">
-                            <p>We support a wide range of popular games including Minecraft, Rust, ARK, CS2, Valheim, Palworld, and many more. Our 1-click installer makes it easy to switch between games or install modpacks.</p>
+                            <p>Ya, semua layanan kami menggunakan sistem instant setup. Begitu pembayaran terverifikasi, layanan langsung aktif dan siap digunakan.</p>
                         </div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question">
-                            <span>How long does it take to set up my server?</span>
+                            <span>Bagaimana cara mengelola server saya?</span>
                             <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                         </div>
                         <div class="faq-answer">
-                            <p>Our systems are fully automated. Your game server will be online and ready to play within seconds of your payment being confirmed.</p>
+                            <p>Kami menyediakan kontrol panel modern (cPanel untuk web hosting, Pterodactyl Custom untuk game server) yang mudah digunakan bahkan untuk pemula.</p>
                         </div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question">
-                            <span>Can I upgrade my plan later?</span>
+                            <span>Bisa upgrade resource di tengah jalan?</span>
                              <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                         </div>
                         <div class="faq-answer">
-                            <p>Absolutely! You can upgrade or downgrade your plan at any time through our client area. The process is instant and you'll only pay the difference for the remaining time in your billing cycle.</p>
+                            <p>Ya, resource server seperti CPU, RAM, dan storage dapat di-upgrade kapan saja tanpa downtime.</p>
                         </div>
                     </div>
                     <div class="faq-item">
                         <div class="faq-question">
-                            <span>What kind of support do you offer?</span>
+                            <span>Dimana lokasi datacenter Skyes Hosting?</span>
                              <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                         </div>
                         <div class="faq-answer">
-                            <p>We offer 24/7/365 support through our ticket system and live chat. Our expert team is always on standby to help you with any issues you might encounter.</p>
+                            <p>Kami memiliki datacenter di Indonesia dengan koneksi langsung ke Telkom Eyeball serta jaringan global untuk latency rendah.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Bagaimana cara menghubungi support?</span>
+                             <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Tim support kami tersedia melalui Tiket, Discord, dan WhatsApp untuk membantu kapan saja.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Apakah ada fitur Backup?</span>
+                             <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Ya, backup bisa dilakukan secara manual atau dengan Schedule di Control Panel.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Bagaimana cara migrasi ke Skyes?</span>
+                             <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Kamu bisa menggunakan Server Importer di panel kami atau upload manual servernya lewat SFTP.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Seberapa aman data saya di Skyes?</span>
+                             <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Kami memiliki backup harian on-site dan per 3 hari off-site, namun user tetap disarankan untuk memiliki backup sendiri. Backup kami hanya digunakan jika ada masalah dari pihak Skyes seperti kerusakan hardware.</p>
                         </div>
                     </div>
                 </div>
@@ -1133,53 +1110,31 @@
                 <div class="footer-col">
                     <a href="#" class="logo">
                         <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.8839 8.23212C16.8839 8.23212 19.5892 12.0001 16.8839 15.7679C14.1785 19.5358 8.11601 19.5358 5.41065 15.7679C2.70529 12.0001 5.41065 8.23212 8.11601 4.46431C10.8214 0.696496 16.8839 8.23212 16.8839 8.23212Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.11613 15.7678C7.11613 15.7678 4.41077 11.9999 7.11613 8.23207C9.82149 4.46425 15.884 4.46425 18.5893 8.23207C21.2947 11.9999 18.5893 15.7678 15.884 19.5356C13.1786 23.3034 7.11613 15.7678 7.11613 15.7678Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        Vortex Host
+                        Skyes Hostings
                     </a>
-                    <p>High-performance game server hosting, simplified.</p>
-                    <div class="social-icons">
-                        <a href="#"><svg fill="currentColor" viewBox="0 0 24 24" width="20" height="20"><path d="M12 2.03998C6.5 2.03998 2 6.52998 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.84998C10.44 7.33998 11.93 5.95998 14.22 5.95998C15.31 5.95998 16.45 6.14998 16.45 6.14998V8.61998H15.19C13.95 8.61998 13.56 9.38998 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C18.34 21.21 22 17.06 22 12.06C22 6.52998 17.5 2.03998 12 2.03998Z"/></svg></a>
-                        <a href="#"><svg fill="currentColor" viewBox="0 0 24 24" width="20" height="20"><path d="M22.46,6.52,21.05,7.82a9,9,0,0,1-12.7,12.7L3,25.22a1,1,0,0,1-1.2-1.2L6.52,2.46a1,1,0,0,1,1.69-.32l2.6,3.39,2.83-2.83a4.5,4.5,0,0,1,6.36,0l2.46,2.46A4.5,4.5,0,0,1,22.46,6.52ZM19.64,9.24,16.81,6.41a2.5,2.5,0,0,0-3.54,0L10.44,9.24A6.9,6.9,0,0,0,9,14.73l-1.3-1.3a1,1,0,0,0-1.41,0L4.85,14.85a1,1,0,0,0,0,1.41l1.3,1.3a6.9,6.9,0,0,0,5.49-1.46l2.83-2.83,2.83,2.83a2.5,2.5,0,0,0,3.54,0l2.83-2.83A2.5,2.5,0,0,0,19.64,9.24Z"/></svg></a>
-                        <a href="#"><svg fill="currentColor" viewBox="0 0 24 24" width="20" height="20"><path d="M21.582,6.186c-0.23-0.86-0.908-1.538-1.768-1.768C18.254,4,12,4,12,4S5.746,4,4.186,4.418 C3.326,4.648,2.648,5.326,2.418,6.186C2,7.746,2,12,2,12s0,4.254,0.418,5.814c0.23,0.86,0.908,1.538,1.768,1.768 C5.746,20,12,20,12,20s6.254,0,7.814-0.418c0.86-0.23,1.538-0.908,1.768-1.768C22,16.254,22,12,22,12S22,7.746,21.582,6.186z M10,15.464V8.536L16,12L10,15.464z"/></svg></a>
-                    </div>
+                    <p>Dipelopori oleh anggota komunitas Minecraft Indonesia. Melayani 10.000+ pelanggan sejak 2019.</p>
                 </div>
                 <div class="footer-col">
-                    <h4>Products</h4>
+                    <h4>Contact Us</h4>
                     <ul>
-                        <li><a href="#">Game Servers</a></li>
-                        <li><a href="#">Voice Servers</a></li>
-                        <li><a href="#">Web Hosting</a></li>
-                        <li><a href="#">Dedicated Servers</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Careers</a></li>
-                    </ul>
-                </div>
-                 <div class="footer-col">
-                    <h4>Support</h4>
-                    <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Submit Ticket</a></li>
-                        <li><a href="#">Server Status</a></li>
-                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="mailto:support@skyes.id">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            support@skyes.id
+                        </a></li>
+                        <li><a href="tel:+6285890000494">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            +62 858 90000 494
+                        </a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Vortex Host. All Rights Reserved.</p>
+                <p>&copy; 2024 Skyes Hosting. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
     <!-- Floating Buttons -->
-    <div class="floating-btn live-chat visible">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-    </div>
     <div class="floating-btn scroll-to-top">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
     </div>
@@ -1196,7 +1151,6 @@
             
             // --- Header Visibility & Scroll ---
             const header = document.querySelector('.header');
-            let lastScrollY = window.scrollY;
             setTimeout(() => {
                 header.classList.add('visible');
             }, 100);
@@ -1207,7 +1161,6 @@
                 } else {
                     header.classList.remove('scrolled');
                 }
-                lastScrollY = window.scrollY;
             });
             
             // --- Scroll Progress Bar ---
@@ -1219,34 +1172,39 @@
                 progressBar.style.width = `${scrollPercentage}%`;
             });
 
-            // --- Hero Typing Effect ---
-            const typingText = document.getElementById('typing-text');
-            const words = ["Minecraft", "Rust", "Palworld", "ARK", "CS2"];
-            let wordIndex = 0;
-            let charIndex = 0;
-            let isDeleting = false;
+            // --- Mobile Navigation ---
+            const hamburger = document.querySelector('.hamburger');
+            const mobileNav = document.getElementById('mobile-nav');
+            const closeBtn = document.getElementById('close-btn');
+            
+            hamburger.addEventListener('click', () => {
+                mobileNav.classList.add('open');
+            });
 
-            function type() {
-                const currentWord = words[wordIndex];
-                if (isDeleting) {
-                    typingText.textContent = currentWord.substring(0, charIndex - 1);
-                    charIndex--;
-                } else {
-                    typingText.textContent = currentWord.substring(0, charIndex + 1);
-                    charIndex++;
+            closeBtn.addEventListener('click', () => {
+                mobileNav.classList.remove('open');
+            });
+            
+            const mobileDropdownToggles = mobileNav.querySelectorAll('.nav-links li');
+            mobileDropdownToggles.forEach(toggle => {
+                if (toggle.querySelector('.dropdown-menu')) {
+                    // Add a class to identify dropdown toggles for styling/logic if needed
+                    toggle.classList.add('has-dropdown');
+                    const link = toggle.querySelector('a');
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        // Toggle 'open' class on the parent LI
+                        if (toggle.classList.contains('open')) {
+                            toggle.classList.remove('open');
+                        } else {
+                            // Close other open dropdowns first
+                            mobileDropdownToggles.forEach(t => t.classList.remove('open'));
+                            toggle.classList.add('open');
+                        }
+                    });
                 }
+            });
 
-                if (!isDeleting && charIndex === currentWord.length) {
-                    setTimeout(() => isDeleting = true, 2000);
-                } else if (isDeleting && charIndex === 0) {
-                    isDeleting = false;
-                    wordIndex = (wordIndex + 1) % words.length;
-                }
-
-                const typeSpeed = isDeleting ? 100 : 200;
-                setTimeout(type, typeSpeed);
-            }
-            type();
 
             // --- Intersection Observer for Scroll Animations ---
             const sections = document.querySelectorAll('.fade-in-section');
@@ -1262,92 +1220,40 @@
                 observer.observe(section);
             });
 
-            // --- Pricing Toggle ---
-            const pricingToggle = document.getElementById('pricing-toggle-switch');
-            const monthlyPrices = document.querySelectorAll('.plan-price.monthly');
-            const yearlyPrices = document.querySelectorAll('.plan-price.yearly');
-
-            pricingToggle.addEventListener('click', () => {
-                pricingToggle.classList.toggle('yearly');
-                const isYearly = pricingToggle.classList.contains('yearly');
-                
-                monthlyPrices.forEach(p => p.classList.toggle('active', !isYearly));
-                yearlyPrices.forEach(p => p.classList.toggle('active', isYearly));
-            });
-
             // --- Animated Counters ---
             const statsSection = document.getElementById('stats');
             const counters = document.querySelectorAll('.stat-counter');
             let hasAnimated = false;
 
+            const countUp = (counter) => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000;
+                const update = () => {
+                    const start = +counter.innerText.replace(/,/g, '');
+                    const increment = (target - start) / (duration / 16);
+                    
+                    if (start < target) {
+                        counter.innerText = Math.ceil(start + increment).toLocaleString();
+                        requestAnimationFrame(update);
+                    } else {
+                        counter.innerText = target.toLocaleString();
+                    }
+                };
+                requestAnimationFrame(update);
+            };
+
             const statsObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && !hasAnimated) {
-                        counters.forEach(counter => {
-                            const target = +counter.getAttribute('data-target');
-                            const duration = 2000;
-                            const increment = target / (duration / 10);
-                            let current = 0;
-
-                            const updateCounter = () => {
-                                current += increment;
-                                if (current < target) {
-                                    counter.innerText = Math.ceil(current).toLocaleString();
-                                    requestAnimationFrame(updateCounter);
-                                } else {
-                                    counter.innerText = target.toLocaleString() + (counter.dataset.target.includes('.') ? '.9+' : '');
-                                }
-                            };
-                            updateCounter();
-                        });
+                        counters.forEach(counter => countUp(counter));
                         hasAnimated = true;
                     }
                 });
             }, { threshold: 0.5 });
-            statsObserver.observe(statsSection);
-
-            // --- Testimonial Slider ---
-            const track = document.querySelector('.testimonial-track');
-            const slides = Array.from(track.children);
-            const dotsNav = document.querySelector('.slider-dots');
-            let currentIndex = 0;
-            let autoSlideInterval;
-
-            slides.forEach((_, i) => {
-                const dot = document.createElement('button');
-                dot.classList.add('slider-dot');
-                if (i === 0) dot.classList.add('active');
-                dot.addEventListener('click', () => {
-                    goToSlide(i);
-                    resetAutoSlide();
-                });
-                dotsNav.appendChild(dot);
-            });
-
-            const dots = Array.from(dotsNav.children);
-
-            const goToSlide = (index) => {
-                track.style.transform = `translateX(-${index * 100}%)`;
-                dots[currentIndex].classList.remove('active');
-                dots[index].classList.add('active');
-                currentIndex = index;
-            };
-
-            const nextSlide = () => {
-                const nextIndex = (currentIndex + 1) % slides.length;
-                goToSlide(nextIndex);
-            };
-            
-            const startAutoSlide = () => {
-                autoSlideInterval = setInterval(nextSlide, 5000);
-            };
-
-            const resetAutoSlide = () => {
-                clearInterval(autoSlideInterval);
-                startAutoSlide();
-            };
-
-            startAutoSlide();
+            if(statsSection) {
+                 statsObserver.observe(statsSection);
+            }
+           
 
             // --- FAQ Accordion ---
             const faqItems = document.querySelectorAll('.faq-item');
@@ -1358,7 +1264,7 @@
                     const isActive = item.classList.contains('active');
                     faqItems.forEach(i => {
                         i.classList.remove('active');
-                        i.querySelector('.faq-answer').style.maxHeight = 0;
+                        i.querySelector('.faq-answer').style.maxHeight = '0px';
                     });
 
                     if (!isActive) {
@@ -1391,3 +1297,4 @@
     </script>
 </body>
 </html>
+
